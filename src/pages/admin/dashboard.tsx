@@ -8,9 +8,12 @@ import AdminSidebar from "../../components/admin/AdminSidebar";
 import { BarChart, DoughnutChart } from "../../components/admin/Charts";
 import Table from "../../components/admin/DashboardTable";
 import { Skeleton } from "../../components/loader";
-import { useStatsQuery } from "../../redux/api/dashboardAPI";
 import { RootState } from "../../redux/store";
 import { getLastMonths } from "../../utils/features";
+import { Stats } from "../../types/types";
+import { useEffect, useState } from "react";
+import { io, Socket } from "socket.io-client";
+import { StatsResponse } from "../../types/api-types";
 
 const userImg =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp";
@@ -20,9 +23,65 @@ const { last6Months: months } = getLastMonths();
 const Dashboard = () => {
   const { user } = useSelector((state: RootState) => state.userReducer);
 
-  const { isLoading, data, isError } = useStatsQuery(user?._id!);
+  const [stats, setStats] = useState<Stats>({
+    categoryCount: [],
+    changePercent: {
+      revenue: 0,
+      product: 0,
+      user: 0,
+      order: 0,
+    },
+    count: {
+      revenue: 0,
+      product: 0,
+      user: 0,
+      order: 0,
+    },
+    chart: {
+      order: [],
+      revenue: [],
+    },
+    userRatio: {
+      male: 0,
+      female: 0,
+    },
+    latestTransaction: [],
+  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
-  const stats = data?.stats!;
+  useEffect(() => {
+    let socket: Socket;
+
+    const connectSocket = () => {
+      socket = io(import.meta.env.VITE_WEBSOCKET_SERVER);
+
+      socket.on("connect", () => {
+        console.log("Connected to WebSocket server");
+        if (user?._id) {
+          socket.emit("getStats", { userId: user._id });
+        }
+      });
+
+      socket.on("stats", (data: StatsResponse) => {
+        console.log(data);
+        setStats(data.stats);
+        setIsLoading(false);
+      });
+
+      socket.on("error", () => {
+        setIsError(true);
+      });
+    };
+
+    connectSocket();
+
+    return () => {
+      if (socket) {
+        socket.disconnect();
+      }
+    };
+  }, [user?._id]);
 
   if (isError) return <Navigate to={"/"} />;
 
