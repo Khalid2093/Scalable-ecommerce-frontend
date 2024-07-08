@@ -1,19 +1,9 @@
 import { useEffect, useState } from "react";
 import { AiFillFileText } from "react-icons/ai";
-import {
-  FaChartBar,
-  FaChartLine,
-  FaChartPie,
-  FaGamepad,
-  FaStopwatch,
-} from "react-icons/fa";
+import { FaChartBar, FaChartLine, FaChartPie } from "react-icons/fa";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { IoIosPeople } from "react-icons/io";
-import {
-  RiCoupon3Fill,
-  RiDashboardFill,
-  RiShoppingBag3Fill,
-} from "react-icons/ri";
+import { RiDashboardFill, RiShoppingBag3Fill } from "react-icons/ri";
 import { Link, Location, useLocation } from "react-router-dom";
 import { IconType } from "react-icons";
 
