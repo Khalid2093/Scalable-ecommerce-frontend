@@ -11,7 +11,7 @@ import {
   removeCartItem,
 } from "../redux/reducer/cartReducer";
 import { RootState, server } from "../redux/store";
-import { CartItem } from "../types/types";
+import { CartItemType } from "../types/types";
 
 const Cart = () => {
   const { cartItems, subtotal, tax, total, shippingCharges, discount } =
@@ -21,12 +21,12 @@ const Cart = () => {
   const [couponCode, setCouponCode] = useState<string>("");
   const [isValidCouponCode, setIsValidCouponCode] = useState<boolean>(false);
 
-  const incrementHandler = (cartItem: CartItem) => {
+  const incrementHandler = (cartItem: CartItemType) => {
     if (cartItem.quantity >= cartItem.stock) return;
 
     dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity + 1 }));
   };
-  const decrementHandler = (cartItem: CartItem) => {
+  const decrementHandler = (cartItem: CartItemType) => {
     if (cartItem.quantity <= 1) return;
 
     dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity - 1 }));

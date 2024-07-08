@@ -31,6 +31,13 @@ const Header = ({ user }: PropsType) => {
 
   return (
     <nav className="header">
+      <Link
+        style={{ marginRight: "auto", fontWeight: "bold" }}
+        onClick={() => setIsOpen(false)}
+        to={"/"}
+      >
+        WELCOME TO MY SHOP
+      </Link>
       <Link onClick={() => setIsOpen(false)} to={"/"}>
         HOME
       </Link>

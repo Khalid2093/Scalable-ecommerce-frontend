@@ -54,7 +54,7 @@ const Dashboard = () => {
     let socket: Socket;
 
     const connectSocket = () => {
-      socket = io(import.meta.env.VITE_WEBSOCKET_SERVER);
+      socket = io(import.meta.env.VITE_WEBSOCKET_SERVER || 8000);
 
       socket.on("connect", () => {
         console.log("Connected to WebSocket server");

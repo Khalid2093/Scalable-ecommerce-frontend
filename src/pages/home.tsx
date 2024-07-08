@@ -5,14 +5,14 @@ import { Skeleton } from "../components/loader";
 import ProductCard from "../components/product-card";
 import { useLatestProductsQuery } from "../redux/api/productAPI";
 import { addToCart } from "../redux/reducer/cartReducer";
-import { CartItem } from "../types/types";
+import { CartItemType } from "../types/types";
 
 const Home = () => {
   const { data, isLoading, isError } = useLatestProductsQuery("");
 
   const dispatch = useDispatch();
 
-  const addToCartHandler = (cartItem: CartItem) => {
+  const addToCartHandler = (cartItem: CartItemType) => {
     if (cartItem.stock < 1) return toast.error("Out of Stock");
     dispatch(addToCart(cartItem));
     toast.success("Added to cart");

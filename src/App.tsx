@@ -29,9 +29,9 @@ const Transaction = lazy(() => import("./pages/admin/transaction"));
 const Barcharts = lazy(() => import("./pages/admin/charts/barcharts"));
 const Piecharts = lazy(() => import("./pages/admin/charts/piecharts"));
 const Linecharts = lazy(() => import("./pages/admin/charts/linecharts"));
-const Coupon = lazy(() => import("./pages/admin/apps/coupon"));
-const Stopwatch = lazy(() => import("./pages/admin/apps/stopwatch"));
-const Toss = lazy(() => import("./pages/admin/apps/toss"));
+// const Coupon = lazy(() => import("./pages/admin/apps/coupon"));
+// const Stopwatch = lazy(() => import("./pages/admin/apps/stopwatch"));
+// const Toss = lazy(() => import("./pages/admin/apps/toss"));
 const NewProduct = lazy(() => import("./pages/admin/management/newproduct"));
 const ProductManagement = lazy(
   () => import("./pages/admin/management/productmanagement")
@@ -104,9 +104,9 @@ const App = () => {
             <Route path="/admin/chart/pie" element={<Piecharts />} />
             <Route path="/admin/chart/line" element={<Linecharts />} />
             {/* Apps */}
-            <Route path="/admin/app/coupon" element={<Coupon />} />
+            {/* <Route path="/admin/app/coupon" element={<Coupon />} />
             <Route path="/admin/app/stopwatch" element={<Stopwatch />} />
-            <Route path="/admin/app/toss" element={<Toss />} />
+            <Route path="/admin/app/toss" element={<Toss />} /> */}
 
             {/* Management */}
             <Route path="/admin/product/new" element={<NewProduct />} />
